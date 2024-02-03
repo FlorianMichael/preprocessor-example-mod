@@ -1,12 +1,13 @@
-plugins {
-	id 'fabric-loom' version '1.5-SNAPSHOT'
-	id 'maven-publish'
-}
+import com.replaymod.gradle.preprocess.PreprocessTask
 
-version = project.mod_version
-group = project.maven_group
+apply plugin: "java-library"
+apply plugin: "maven-publish"
+apply plugin: "fabric-loom"
+apply plugin: "com.replaymod.preprocess"
 
 base {
+	version = project.mod_version
+	group = project.maven_group
 	archivesName = project.archives_base_name
 }
 
@@ -18,18 +19,6 @@ repositories {
 	// for more information about repositories.
 }
 
-loom {
-    splitEnvironmentSourceSets()
-
-	mods {
-		"modid" {
-			sourceSet sourceSets.main
-			sourceSet sourceSets.client
-		}
-	}
-
-}
-
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -38,11 +27,25 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-	
-	// Uncomment the following line to enable the deprecated Fabric API modules. 
+
+	// Uncomment the following line to enable the deprecated Fabric API modules.
 	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
 
 	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
+}
+
+preprocess {
+	vars.put("MC", project.mcVersion)
+	vars.put("FABRIC", 1)
+
+	keywords.set([
+			".java": PreprocessTask.DEFAULT_KEYWORDS,
+			".json": PreprocessTask.DEFAULT_KEYWORDS,
+			".vert": PreprocessTask.DEFAULT_KEYWORDS,
+			".frag": PreprocessTask.DEFAULT_KEYWORDS,
+	])
+
+	patternAnnotation.set("com.replaymod.gradle.remap.Pattern")
 }
 
 processResources {

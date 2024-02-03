@@ -1,4 +1,6 @@
-# Fabric Example Mod
+# Preprocessor Example Mod
+
+Example mod for ReplayMod's [preprocessor](https://github.com/ReplayMod/preprocessor).
 
 ## Setup
 
