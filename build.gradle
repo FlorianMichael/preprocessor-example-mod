@@ -49,10 +49,10 @@ preprocess {
 }
 
 processResources {
-    inputs.property "version", project.version
+    inputs.properties version: project.version, mcversion: project.minecraft_version
 
     filesMatching("fabric.mod.json") {
-        expand "version": project.version
+        expand "version": project.version, "mcversion": project.minecraft_version
     }
 }
 
