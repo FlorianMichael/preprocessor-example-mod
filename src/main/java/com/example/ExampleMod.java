@@ -17,6 +17,12 @@ public class ExampleMod implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
-		LOGGER.info("Hello Fabric world!");
+		//#if MC>=12004
+		LOGGER.info("Hello Fabric world in MC 1.20.4!");
+		//#elseif MC>=12002
+		//$$ LOGGER.info("Hello Fabric world in MC 1.20.2!");
+		//#else
+		//$$ LOGGER.info("Hello Fabric world!");
+		//#endif
 	}
 }
