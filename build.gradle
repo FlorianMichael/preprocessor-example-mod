@@ -19,8 +19,11 @@ repositories {
     // for more information about repositories.
 }
 
+// This build.gradle file will get executed for every version in the versions/ folder.
+// Depending on the fields in the gradle.properties file, you can use different mod loaders or dependencies.
+
 dependencies {
-    // To change the versions see the gradle.properties file
+    // To change the versions see the gradle.properties file from every version folder in versions/
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
@@ -35,8 +38,8 @@ dependencies {
 }
 
 preprocess {
-    vars.put("MC", project.mcVersion)
-    vars.put("FABRIC", 1)
+    vars.put("MC", project.mcVersion) // This version can be used in the build script to check the Minecraft version
+    vars.put("FABRIC", 1) // For forge, set FORGE to 1 and this to 0
 
     keywords.set([
             ".java": PreprocessTask.DEFAULT_KEYWORDS,
